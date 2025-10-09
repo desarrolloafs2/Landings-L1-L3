@@ -40,16 +40,16 @@ use App\Http\Controllers\IAController;
 
 //--------------------------------------------------- TD V4 ---------------------------------------------------//
 
-Route::get('bootcamp-en-marketing-digital', [DigitalTransformationV4Controller::class, 'index']);
+// Route::get('bootcamp-en-marketing-digital', [DigitalTransformationV4Controller::class, 'index']);
 
-Route::post('bootcamp-en-marketing-digital', [DigitalTransformationV4Controller::class, 'storeData']);
+// Route::post('bootcamp-en-marketing-digital', [DigitalTransformationV4Controller::class, 'storeData']);
 
 
 //--------------------------------------------------- IA V1 ---------------------------------------------------//
 
-Route::get('inteligencia-artificial', [IAController::class, 'index']);
+// Route::get('inteligencia-artificial', [IAController::class, 'index']);
 
-Route::post('inteligencia-artificial', [IAController::class, 'storeData']);
+// Route::post('inteligencia-artificial', [IAController::class, 'storeData']);
 
 //--------------------------------------------------- L1 ---------------------------------------------------//
 

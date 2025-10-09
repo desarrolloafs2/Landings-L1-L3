@@ -76,15 +76,14 @@
 	</section>
 
 
-    <section class="py-5">
-		<div class="container pb-3">
+    <section class="py-5 mt-5">
+		<div class="container pb-3 position-relative" style="overflow: visible;">
 			@if(empty($courses))
 				<p>No hay cursos disponibles.</p>
 			@else
 				<div id="cursosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-					<div class="carousel-inner" style="min-height: 420px;">
+					<div class="carousel-inner py-2" style="min-height: 420px;">
 						@php
-							// Generamos chunks dinámicos: 3 por slide para pantallas grandes
 							$chunks = array_chunk($courses, 3);
 						@endphp
 
@@ -93,28 +92,33 @@
 								<div class="row g-4">
 									@foreach($chunk as $curso)
 										<div class="col-12 col-md-4">
-											<div class="card shadow-sm h-100 rounded-3 p-3">
-												<div class="ratio ratio-16x9 rounded-3 overflow-hidden">
-													<img src="{{ $curso['imagen'] ?: asset('images/placeholder.png') }}"
-														 alt="{{ $curso['titulo'] }}"
-														 class="img-fluid w-100 h-100 object-fit-cover">
-												</div>
+											<a href="https://www.grupoafs.com/nuestros-cursos/" 
+											target="_blank" 
+											rel="noopener noreferrer" 
+											class="text-decoration-none text-dark">
+												<div class="card shadow-sm h-100 rounded-3 p-3 card-hover">
+													<div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+														<img src="{{ $curso['imagen'] ?: asset('images/placeholder.png') }}"
+															alt="{{ $curso['titulo'] }}"
+															class="img-fluid w-100 h-100 object-fit-cover">
+													</div>
 
-												<div class="card-body text-start">
-													<h5 class="card-title fw-bold mt-3">{{ $curso['titulo'] }}</h5>
-													<hr>
-													<div class="d-flex justify-content-between flex-wrap">
-														<div class="mb-2">
-															<p><b>Horario: </b><br>{{ $curso['horario'] }}</p>
-															<p><b>Modalidad: </b><br>{{ $curso['modalidad'] }}</p>
-														</div>
-														<div>
-															<p><b>Inicio: </b><br>{{ $curso['inicio'] }}</p>
-															<p><b>Duración: </b><br>{{ $curso['duracion'] }}</p>
+													<div class="card-body text-start">
+														<h5 class="card-title fw-bold mt-3">{{ $curso['titulo'] }}</h5>
+														<hr>
+														<div class="d-flex justify-content-between flex-wrap">
+															<div class="mb-2">
+																<p><b>Horario: </b><br>{{ $curso['horario'] }}</p>
+																<p><b>Modalidad: </b><br>{{ $curso['modalidad'] }}</p>
+															</div>
+															<div>
+																<p><b>Inicio: </b><br>{{ $curso['inicio'] }}</p>
+																<p><b>Duración: </b><br>{{ $curso['duracion'] }}</p>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
+											</a>
 										</div>
 									@endforeach
 								</div>
@@ -122,22 +126,22 @@
 						@endforeach
 					</div>
 
-					{{-- Flechas laterales solo en escritorio --}}
-					<button class="carousel-control-prev d-none d-md-flex" type="button"
-						data-bs-target="#cursosCarousel" data-bs-slide="prev"
-						style="position: absolute; top: 50%; transform: translateY(-50%); left: -150px; background: none; opacity: 1;">
+					<!-- Flechas (fuera del área de los cards) -->
+					<button class="carousel-control-prev d-none d-md-flex align-items-center justify-content-center"
+							type="button" data-bs-target="#cursosCarousel" data-bs-slide="prev"
+							style="position: absolute; top: 50%; transform: translateY(-50%); left: -100px; background: none; opacity: 1; z-index: 5;">
 						<img src="{{ asset('images/l-arrow.png') }}" alt="Anterior" style="width: 40px; height: 40px;">
 						<span class="visually-hidden">Anterior</span>
 					</button>
 
-					<button class="carousel-control-next d-none d-md-flex" type="button"
-						data-bs-target="#cursosCarousel" data-bs-slide="next"
-						style="position: absolute; top: 50%; transform: translateY(-50%); right: -150px; background: none; opacity: 1;">
+					<button class="carousel-control-next d-none d-md-flex align-items-center justify-content-center"
+							type="button" data-bs-target="#cursosCarousel" data-bs-slide="next"
+							style="position: absolute; top: 50%; transform: translateY(-50%); right: -100px; background: none; opacity: 1; z-index: 5;">
 						<img src="{{ asset('images/r-arrow.png') }}" alt="Siguiente" style="width: 40px; height: 40px;">
 						<span class="visually-hidden">Siguiente</span>
 					</button>
 
-					{{-- Botones centrados en móviles --}}
+					<!-- Controles móviles -->
 					<div class="d-flex d-md-none justify-content-center gap-4 mt-4">
 						<button class="btn btn-link p-0" type="button" data-bs-target="#cursosCarousel" data-bs-slide="prev">
 							<img src="{{ asset('images/l-arrow.png') }}" alt="Anterior" style="width: 40px; height: 40px;">
@@ -158,11 +162,42 @@
 			overflow-x: hidden;
 		}
 		#cursosCarousel .carousel-inner .col-12 {
-			flex: 0 0 100%;
+			flex: 0 0 100%; 
 			max-width: 100%;
 		}
 	}
+
+	.card-hover {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		cursor: pointer;
+		margin-top: 8px;
+	}
+
+	.card-hover:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	/* Márgenes exteriores para el carrusel */
+	section.py-5 {
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+
+	/* Margen interno del contenedor */
+	.container {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+	/* Asegura que las flechas estén centradas correctamente */
+	.carousel-control-prev,
+	.carousel-control-next {
+		width: 60px;
+		height: 60px;
+	}
 	</style>
+
 
 
     <section class="mb-5 text-center">

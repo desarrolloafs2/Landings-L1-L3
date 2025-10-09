@@ -88,11 +88,11 @@ class ConvocatoriaL1 extends Controller
                 $record->increment('registros');
             }
 
-            return redirect('https://afsformacion.com/gracias-por-preinscribirte/')
+            return redirect('https://www.grupoafs.com/gracias-por-contactarnos/')
                 ->cookie($alreadyRegistered);
         }
 
-        return redirect('https://afsformacion.com/gracias-por-preinscribirte/');
+        return redirect('https://www.grupoafs.com/gracias-por-contactarnos/');
     }
 
 

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -85,15 +86,14 @@
 	</style>
 
 
-    <section class="py-5">
-		<div class="container pb-3">
+    <section class="py-5 mt-5">
+		<div class="container pb-3 position-relative" style="overflow: visible;">
 			@if(empty($courses))
 				<p>No hay cursos disponibles.</p>
 			@else
 				<div id="cursosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-					<div class="carousel-inner" style="min-height: 420px;">
+					<div class="carousel-inner py-2" style="min-height: 420px;">
 						@php
-							// Generamos chunks dinámicos: 3 por slide para pantallas grandes
 							$chunks = array_chunk($courses, 3);
 						@endphp
 
@@ -102,28 +102,33 @@
 								<div class="row g-4">
 									@foreach($chunk as $curso)
 										<div class="col-12 col-md-4">
-											<div class="card shadow-sm h-100 rounded-3 p-3">
-												<div class="ratio ratio-16x9 rounded-3 overflow-hidden">
-													<img src="{{ $curso['imagen'] ?: asset('images/placeholder.png') }}"
-														 alt="{{ $curso['titulo'] }}"
-														 class="img-fluid w-100 h-100 object-fit-cover">
-												</div>
+											<a href="https://www.grupoafs.com/nuestros-cursos/" 
+											   target="_blank" 
+											   rel="noopener noreferrer" 
+											   class="text-decoration-none text-dark">
+												<div class="card shadow-sm h-100 rounded-3 p-3 card-hover">
+													<div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+														<img src="{{ $curso['imagen'] ?: asset('images/placeholder.png') }}"
+															 alt="{{ $curso['titulo'] }}"
+															 class="img-fluid w-100 h-100 object-fit-cover">
+													</div>
 
-												<div class="card-body text-start">
-													<h5 class="card-title fw-bold mt-3">{{ $curso['titulo'] }}</h5>
-													<hr>
-													<div class="d-flex justify-content-between flex-wrap">
-														<div class="mb-2">
-															<p><b>Horario: </b><br>{{ $curso['horario'] }}</p>
-															<p><b>Modalidad: </b><br>{{ $curso['modalidad'] }}</p>
-														</div>
-														<div>
-															<p><b>Inicio: </b><br>{{ $curso['inicio'] }}</p>
-															<p><b>Duración: </b><br>{{ $curso['duracion'] }}</p>
+													<div class="card-body text-start">
+														<h5 class="card-title fw-bold mt-3">{{ $curso['titulo'] }}</h5>
+														<hr>
+														<div class="d-flex justify-content-between flex-wrap">
+															<div class="mb-2">
+																<p><b>Horario: </b><br>{{ $curso['horario'] }}</p>
+																<p><b>Modalidad: </b><br>{{ $curso['modalidad'] }}</p>
+															</div>
+															<div>
+																<p><b>Inicio: </b><br>{{ $curso['inicio'] }}</p>
+																<p><b>Duración: </b><br>{{ $curso['duracion'] }}</p>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
+											</a>
 										</div>
 									@endforeach
 								</div>
@@ -131,18 +136,22 @@
 						@endforeach
 					</div>
 
-					<button class="carousel-control-prev d-none d-md-flex" type="button" data-bs-target="#cursosCarousel" data-bs-slide="prev"
-						style="position: absolute; top: 50%; transform: translateY(-50%); left: -150px; background: none; opacity: 1;">
+					<!-- Flechas (fuera del área de los cards) -->
+					<button class="carousel-control-prev d-none d-md-flex align-items-center justify-content-center"
+							type="button" data-bs-target="#cursosCarousel" data-bs-slide="prev"
+							style="position: absolute; top: 50%; transform: translateY(-50%); left: -100px; background: none; opacity: 1; z-index: 5;">
 						<img src="{{ asset('images/l-arrow.png') }}" alt="Anterior" style="width: 40px; height: 40px;">
 						<span class="visually-hidden">Anterior</span>
 					</button>
 
-					<button class="carousel-control-next d-none d-md-flex" type="button" data-bs-target="#cursosCarousel" data-bs-slide="next"
-						style="position: absolute; top: 50%; transform: translateY(-50%); right: -150px; background: none; opacity: 1;">
+					<button class="carousel-control-next d-none d-md-flex align-items-center justify-content-center"
+							type="button" data-bs-target="#cursosCarousel" data-bs-slide="next"
+							style="position: absolute; top: 50%; transform: translateY(-50%); right: -100px; background: none; opacity: 1; z-index: 5;">
 						<img src="{{ asset('images/r-arrow.png') }}" alt="Siguiente" style="width: 40px; height: 40px;">
 						<span class="visually-hidden">Siguiente</span>
 					</button>
 
+					<!-- Controles móviles -->
 					<div class="d-flex d-md-none justify-content-center gap-4 mt-4">
 						<button class="btn btn-link p-0" type="button" data-bs-target="#cursosCarousel" data-bs-slide="prev">
 							<img src="{{ asset('images/l-arrow.png') }}" alt="Anterior" style="width: 40px; height: 40px;">
@@ -167,7 +176,39 @@
 			max-width: 100%;
 		}
 	}
+
+	.card-hover {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		cursor: pointer;
+		margin-top: 8px;
+	}
+
+	.card-hover:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	/* Márgenes exteriores para el carrusel */
+	section.py-5 {
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+
+	/* Margen interno del contenedor */
+	.container {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+	/* Asegura que las flechas estén centradas correctamente */
+	.carousel-control-prev,
+	.carousel-control-next {
+		width: 60px;
+		height: 60px;
+	}
 	</style>
+
+
 
 
 
@@ -215,77 +256,59 @@
 	</section>
 
 
-    <section class="mb-5 text-center text-white d-flex align-items-start justify-content-center section-becas"
-		style="background-image: url('{{asset('images/Imagenes-L1-2.png')}}');
-			   background-size: cover;
-			   background-position: center 80%;
-			   background-repeat: no-repeat;
-			   min-height: 95vh;
-			   padding-top: 8vh;
-			   position: relative;">
+    <section class="mb-5 bg-section text-center" style="
+            background-image: url('{{asset('images/Imagenes-L1-2.png')}}'); 
+            background-size: cover; 
+            background-position: center 80%; 
+            background-repeat: no-repeat; 
+            min-height: 95vh; 
+            display: flex; 
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8vh;">
 
-		<div class="position-absolute top-0 start-0 w-100 h-100"></div>
-		<div class="container position-relative">
-			<div class="mx-auto" style="max-width: 900px;">
+        <div class="overlay"></div>
 
-				<h1 class="fw-bold mb-5"
-					style="font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1;">
-					Becas y ayudas para personas <br>en situación de desempleo
-				</h1>
+        <div class="container position-relative">
+            <div class="mx-auto" style="max-width: 90%;">
 
-				<p class="mb-5" style="font-size: clamp(1rem, 2vw, 1.6rem);">
-					Queremos que solo te preocupes de aprender, por eso <br>
-					ponemos a tu disposición diferentes ayudas económicas
-				</p>
+                <h1 class="text-white fw-bold mb-5" style="font-size: clamp(2rem, 5vw, 4rem); line-height: 1.2;">
+                    Becas y ayudas para personas <br>en situación de desempleo
+                </h1>
 
-				<div class="row g-3 mb-4">
-					<div class="col-12 col-sm-6">
-						<div class="bg-white text-dark rounded-3 p-3 h-100">
-							<p class="mb-0" style="font-size: clamp(0.9rem, 2vw, 1.3rem);">
-								Ayudas de <br><b>Transporte</b>
-							</p>
-						</div>
-					</div>
-					<div class="col-12 col-sm-6">
-						<div class="bg-white text-dark rounded-3 p-3 h-100">
-							<p class="mb-0" style="font-size: clamp(0.9rem, 2vw, 1.3rem);">
-								Ayudas a la <br><b>Conciliación</b>
-							</p>
-						</div>
-					</div>
-				</div>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6">
+                        <div class="bg-white rounded-3 p-3 h-100 d-flex align-items-center justify-content-center"
+                            style="font-size: clamp(1rem, 2.5vw, 1.3rem);">
+                            <p class="mb-0">Ayudas de <br><b>Transporte</b></p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="bg-white rounded-3 p-3 h-100 d-flex align-items-center justify-content-center"
+                            style="font-size: clamp(1rem, 2.5vw, 1.3rem);">
+                            <p class="mb-0">Ayudas a la <br><b>Conciliación</b></p>
+                        </div>
+                    </div>
+                </div>
 
-				<div class="row g-3">
-					<div class="col-12 col-sm-6">
-						<div class="bg-white text-dark rounded-3 p-3 h-100">
-							<p class="mb-0" style="font-size: clamp(0.9rem, 2vw, 1.3rem);">
-								Becas a personas <br><b>discapacitadas</b>
-							</p>
-						</div>
-					</div>
-					<div class="col-12 col-sm-6">
-						<div class="bg-white text-dark rounded-3 p-3 h-100">
-							<p class="mb-0" style="font-size: clamp(0.9rem, 2vw, 1.3rem);">
-								Becas a víctimas de <br><b>violencia de género</b>
-							</p>
-						</div>
-					</div>
-				</div>
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6">
+                        <div class="bg-white rounded-3 p-3 h-100 d-flex align-items-center justify-content-center"
+                            style="font-size: clamp(1rem, 2.5vw, 1.3rem);">
+                            <p class="mb-0">Becas a personas <br><b>discapacitadas</b></p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="bg-white rounded-3 p-3 h-100 d-flex align-items-center justify-content-center"
+                            style="font-size: clamp(1rem, 2.5vw, 1.3rem);">
+                            <p class="mb-0">Becas a víctimas de <br><b>violencia de género</b></p>
+                        </div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
-	</section>
-
-	<style>
-	@media (max-width: 768px) {
-		.section-becas {
-			background-position: left center !important; 
-			background-size: cover !important; 
-			padding-top: 5vh;
-			min-height: 80vh;
-		}
-	}
-	</style>
+            </div>
+        </div>
+    </section>
 
 
     <section class="py-5">
