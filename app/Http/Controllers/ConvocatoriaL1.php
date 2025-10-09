@@ -73,7 +73,7 @@ class ConvocatoriaL1 extends Controller
         ];
 
         $data = [
-            'crm_code' => self::$crm_code_marketing,
+            'crm_code' => self::$crm_l1_l3,
             'wpforms' => ['fields' => $fields],
             'observations' => 'landingsEOI'
         ];
