@@ -75,7 +75,7 @@ class ConvocatoriaL3 extends Controller
         $data = [
             'crm_code' => self::$crm_l1_l3,
             'wpforms' => ['fields' => $fields],
-            'observations' => 'landingsEOI'
+            'observations' => 'landingl3'
         ];
 
         \Illuminate\Support\Facades\Http::post('https://www.grupoafs.com/FormToDynamics/public/api', $data);

@@ -414,7 +414,7 @@
 							<div class="d-flex align-items-center form-box">
 								<div class="row w-100">
 									<div class="col-12 col-lg-11 col-xl-10 offset-lg-0 offset-xl-1">
-										<form method="post" action="{{url('bootcamp-en-marketing-digital')}}">
+										<form method="post" action="{{url('cursos-gratis-ocupados-ministerio')}}">
 											{{csrf_field()}}
 											@if(request()->has('qr'))
 												<input type="hidden" name="qr" value="{{ request('qr') }}">
